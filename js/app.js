@@ -44,7 +44,7 @@
 		}
 	});
 
-	app.controller('MainController',['$scope','persistData',function($scope,persistData){
+	app.controller('MainController',['$scope','persistData','$rootScope',function($scope,persistData,$rootScope){
 		$scope.user = persistData.getValue('user') || "Rafael";
 
 		$scope.save = function(){
@@ -53,9 +53,15 @@
 			alert('saved');
 		};
 
+		$rootScope.$on('$routeChangeStart',function(){
+
+			persistData.setValue('user',$scope.user);
+		
+		});
+
 	}]);
 
-	app.controller('FirstController',['$scope','persistData',function($scope,persistData){
+	app.controller('FirstController',['$scope','persistData','$rootScope',function($scope,persistData,$rootScope){
 		$scope.telefone = persistData.getValue('telefone') || "9999999999";
 
 		$scope.save = function(){
@@ -64,16 +70,30 @@
 			alert('saved');
 		};
 
+		$rootScope.$on('$routeChangeStart',function(){
+
+			persistData.setValue('telefone',$scope.telefone);
+			
+		});
+
+
 	}]);
 
-	app.controller('SecondController',['$scope','persistData',function($scope,persistData){
-		$scope.address = persistData.getValue('address') || "9999999999";
+	app.controller('SecondController',['$scope','persistData','$rootScope',function($scope,persistData,$rootScope){
+		$scope.address = persistData.getValue('address') || "La na esquina";
 
 		$scope.save = function(){
 			persistData.setValue('address',$scope.address);
 
 			alert('saved');
 		};
+
+		$rootScope.$on('$routeChangeStart',function(){
+
+			persistData.setValue('address',$scope.address);
+			
+		});
+
 
 	}]);
 
